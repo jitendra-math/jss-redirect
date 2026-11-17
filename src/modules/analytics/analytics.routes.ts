@@ -35,6 +35,6 @@ const validationHook = (result: { success: boolean; error?: { issues: unknown[] 
   }
 };
 
-routes.get('/summary', zValidator('query', analyticsQuerySchema, validationHook), analyticsSummaryHandler);
+routes.get('/summary', zValidator<typeof analyticsQuerySchema, 'query', AppEnv, string>('query', analyticsQuerySchema, validationHook), analyticsSummaryHandler);
 
 export { routes as analyticsRoutes };

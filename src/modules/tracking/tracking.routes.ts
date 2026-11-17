@@ -35,7 +35,7 @@ const validationHook = (result: { success: boolean; error?: { issues: unknown[] 
   }
 };
 
-routes.post('/campaigns', zValidator('json', createCampaignSchema, validationHook), createCampaignHandler);
-routes.post('/tokens', zValidator('json', createTrackingTokenSchema, validationHook), createTrackingTokenHandler);
+routes.post('/campaigns', zValidator<typeof createCampaignSchema, 'json', AppEnv, string>('json', createCampaignSchema, validationHook), createCampaignHandler);
+routes.post('/tokens', zValidator<typeof createTrackingTokenSchema, 'json', AppEnv, string>('json', createTrackingTokenSchema, validationHook), createTrackingTokenHandler);
 
 export { routes as trackingRoutes };

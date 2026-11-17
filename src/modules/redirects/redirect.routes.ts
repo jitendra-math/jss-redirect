@@ -34,19 +34,19 @@ const validationHook = (result: { success: boolean; error?: { issues: unknown[] 
   }
 };
 
-routes.get('/whatsapp', zValidator('query', redirectQuerySchema, validationHook), fixedRedirectHandler('whatsapp'));
-routes.get('/github', zValidator('query', redirectQuerySchema, validationHook), fixedRedirectHandler('github'));
-routes.get('/website', zValidator('query', redirectQuerySchema, validationHook), fixedRedirectHandler('website'));
-routes.get('/work/wa-server', zValidator('query', redirectQuerySchema, validationHook), fixedRedirectHandler('wa-server'));
+routes.get('/whatsapp', zValidator<typeof redirectQuerySchema, 'query', AppEnv, string>('query', redirectQuerySchema, validationHook), fixedRedirectHandler('whatsapp'));
+routes.get('/github', zValidator<typeof redirectQuerySchema, 'query', AppEnv, string>('query', redirectQuerySchema, validationHook), fixedRedirectHandler('github'));
+routes.get('/website', zValidator<typeof redirectQuerySchema, 'query', AppEnv, string>('query', redirectQuerySchema, validationHook), fixedRedirectHandler('website'));
+routes.get('/work/wa-server', zValidator<typeof redirectQuerySchema, 'query', AppEnv, string>('query', redirectQuerySchema, validationHook), fixedRedirectHandler('wa-server'));
 routes.get(
   '/r/:slug',
-  zValidator('param', redirectSlugParamsSchema, validationHook),
-  zValidator('query', redirectQuerySchema, validationHook),
+  zValidator<typeof redirectSlugParamsSchema, 'param', AppEnv, string>('param', redirectSlugParamsSchema, validationHook),
+  zValidator<typeof redirectQuerySchema, 'query', AppEnv, string>('query', redirectQuerySchema, validationHook),
   dynamicRedirectHandler,
 );
 
 routes.use('/api/redirect-links', apiRateLimit, internalApiKeyMiddleware);
-routes.post('/api/redirect-links', zValidator('json', createRedirectLinkSchema, validationHook), async (c) => {
+routes.post('/api/redirect-links', zValidator<typeof createRedirectLinkSchema, 'json', AppEnv, string>('json', createRedirectLinkSchema, validationHook), async (c) => {
   const input = c.req.valid('json');
   const expiresAt = input.expiresAt ? new Date(input.expiresAt) : undefined;
   const link = await createRedirectLink({

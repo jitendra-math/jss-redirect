@@ -1,6 +1,8 @@
 import type { Context } from 'hono';
 import type { DestinationKey } from '../../config/destinations';
 import { getFixedDestination, resolveRedirectSlug } from './redirect.service';
+import { AppError } from '../../lib/errors/app-error';
+import { ErrorCode } from '../../lib/errors/error-codes';
 import { recordClick } from '../tracking/tracking.service';
 import { logger } from '../../lib/logger';
 import type { AppEnv } from '../../types/hono-env';
@@ -15,7 +17,7 @@ async function recordClickWithoutBlockingRedirect(
   try {
     await recordClick({
       destinationKey,
-      trackingToken,
+      ...(trackingToken ? { trackingToken } : {}),
       campaignId,
       redirectLinkId,
       requestId: c.get('requestId'),
@@ -47,6 +49,11 @@ export async function dynamicRedirectHandler(
 ) {
   const trackingToken = c.req.query('cid');
   const slug = c.req.param('slug');
+
+  if (!slug) {
+    throw new AppError('A redirect slug is required.', ErrorCode.VALIDATION_ERROR, 400);
+  }
+
   const resolved = await resolveRedirectSlug(slug);
 
   await recordClickWithoutBlockingRedirect(
