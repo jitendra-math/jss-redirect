@@ -1,6 +1,5 @@
 import { Hono } from 'hono';
-import { zValidator } from '@hono/zod-validator';
-import { ErrorCode } from '../../lib/errors/error-codes';
+import { validate } from '../../lib/validation/zod-validator';
 import { internalApiKeyMiddleware } from '../../middleware/internal-api-key.middleware';
 import { createRateLimitMiddleware } from '../../middleware/rate-limit.middleware';
 import { getEnv } from '../../config/env';
@@ -16,25 +15,6 @@ routes.use('*', createRateLimitMiddleware({
 }));
 routes.use('*', internalApiKeyMiddleware);
 
-const validationHook = (result: { success: boolean; error?: { issues: unknown[] } }, c: import('hono').Context<AppEnv>) => {
-  if (!result.success) {
-    return c.json(
-      {
-        error: {
-          code: ErrorCode.VALIDATION_ERROR,
-          message: 'The query contains invalid data.',
-          details: result.error?.issues.map((issue) => {
-            const item = issue as { code?: unknown; path?: unknown; message?: unknown };
-            return { code: item.code, path: item.path, message: item.message };
-          }),
-        },
-        requestId: c.get('requestId'),
-      },
-      400,
-    );
-  }
-};
-
-routes.get('/summary', zValidator<typeof analyticsQuerySchema, 'query', AppEnv, string>('query', analyticsQuerySchema, validationHook), analyticsSummaryHandler);
+routes.get('/summary', validate('query', analyticsQuerySchema, 'The query contains invalid data.'), analyticsSummaryHandler);
 
 export { routes as analyticsRoutes };
