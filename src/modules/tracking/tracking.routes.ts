@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { validate } from '../../lib/validation/zod-validator';
+import { zValidator } from '@hono/zod-validator';
 import { getEnv } from '../../config/env';
 import { internalApiKeyMiddleware } from '../../middleware/internal-api-key.middleware';
 import { createRateLimitMiddleware } from '../../middleware/rate-limit.middleware';
@@ -15,7 +15,7 @@ routes.use('*', createRateLimitMiddleware({
 }));
 routes.use('*', internalApiKeyMiddleware);
 
-routes.post('/campaigns', validate('json', createCampaignSchema), createCampaignHandler);
-routes.post('/tokens', validate('json', createTrackingTokenSchema), createTrackingTokenHandler);
+routes.post('/campaigns', zValidator('json', createCampaignSchema), createCampaignHandler);
+routes.post('/tokens', zValidator('json', createTrackingTokenSchema), createTrackingTokenHandler);
 
 export { routes as trackingRoutes };

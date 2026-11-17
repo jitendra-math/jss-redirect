@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { validate } from '../../lib/validation/zod-validator';
+import { zValidator } from '@hono/zod-validator';
 import { internalApiKeyMiddleware } from '../../middleware/internal-api-key.middleware';
 import { createRateLimitMiddleware } from '../../middleware/rate-limit.middleware';
 import { getEnv } from '../../config/env';
@@ -15,6 +15,6 @@ routes.use('*', createRateLimitMiddleware({
 }));
 routes.use('*', internalApiKeyMiddleware);
 
-routes.get('/summary', validate('query', analyticsQuerySchema, 'The query contains invalid data.'), analyticsSummaryHandler);
+routes.get('/summary', zValidator('query', analyticsQuerySchema), analyticsSummaryHandler);
 
 export { routes as analyticsRoutes };
