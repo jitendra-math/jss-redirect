@@ -219,23 +219,21 @@ export async function getCampaignRecipientReport(campaignId: string, limit = 100
 
     if (!row.linkId) continue;
 
-    let link = recipient.linksById.get(row.linkId);
-    if (!link) {
-      link = {
-        linkId: row.linkId,
-        key: row.linkKey ?? row.destinationKey,
-        label: row.linkLabel ?? row.linkKey ?? row.destinationKey,
-        slug: row.slug ?? '',
-        destinationUrl: row.destinationUrl,
-        destinationKey: row.destinationKey,
-        totalClicks: 0,
-        humanClicks: 0,
-        automatedClicks: 0,
-        firstClickedAt: null,
-        lastClickedAt: null,
-      };
-      recipient.linksById.set(row.linkId, link);
-    }
+    const link: LinkStats = recipient.linksById.get(row.linkId) ?? {
+      linkId: row.linkId,
+      key: row.linkKey ?? row.destinationKey ?? 'link',
+      label: row.linkLabel ?? row.linkKey ?? row.destinationKey ?? 'Link',
+      slug: row.slug ?? '',
+      destinationUrl: row.destinationUrl,
+      destinationKey: row.destinationKey ?? 'unknown',
+      totalClicks: 0,
+      humanClicks: 0,
+      automatedClicks: 0,
+      firstClickedAt: null,
+      lastClickedAt: null,
+    };
+
+    recipient.linksById.set(row.linkId, link);
 
     if (clickedAt) {
       link.totalClicks += 1;
@@ -293,6 +291,11 @@ export async function getCampaignRecipientReport(campaignId: string, limit = 100
     },
     recipients: recipients.slice(offset, offset + limit),
   };
+}
+
+// Returns the complete recipient report for CSV export.
+export async function getEventsForCsv(campaignId: string) {
+  return getCampaignRecipientReport(campaignId, 1_000_000, 0);
 }
 
 export async function getLinkPerformance(campaignId?: string) {

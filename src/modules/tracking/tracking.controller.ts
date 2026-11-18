@@ -26,7 +26,7 @@ export async function listCampaignsHandler(c: Context<AppEnv>) {
 }
 
 export async function getCampaignDetailsHandler(c: Context<AppEnv>) {
-  const campaignId = c.req.param('campaignId');
+  const campaignId = c.req.param('campaignId') ?? '';
   const campaign = await getCampaignDetails(campaignId);
   return c.json({ data: campaign, requestId: c.get('requestId') });
 }
@@ -44,7 +44,7 @@ export async function createBulkTrackingLinksHandler(c: Context<AppEnv>) {
 }
 
 export async function revokeTrackingTokenHandler(c: Context<AppEnv>) {
-  const tokenId = c.req.param('tokenId');
+  const tokenId = c.req.param('tokenId') ?? '';
   const result = await revokeToken(tokenId);
   return c.json({ data: result, requestId: c.get('requestId') });
 }
