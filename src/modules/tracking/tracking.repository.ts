@@ -1,8 +1,8 @@
 import { and, eq, isNull, gt } from 'drizzle-orm';
-import { db } from '../../db/client';
-import { campaigns } from '../../db/schema/campaigns';
-import { clickEvents } from '../../db/schema/click-events';
-import { trackingTokens } from '../../db/schema/tracking-tokens';
+import { db } from '../../db/client.js';
+import { campaigns } from '../../db/schema/campaigns.js';
+import { clickEvents } from '../../db/schema/click-events.js';
+import { trackingTokens } from '../../db/schema/tracking-tokens.js';
 
 export async function findCampaignBySlug(slug: string) {
   const rows = await db.select().from(campaigns).where(eq(campaigns.slug, slug)).limit(1);

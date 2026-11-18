@@ -1,4 +1,4 @@
-import type { DestinationKey } from '../../config/destinations';
+import type { DestinationKey } from '../../config/destinations.js';
 
 export type CreateRedirectLinkInput = {
   slug: string;

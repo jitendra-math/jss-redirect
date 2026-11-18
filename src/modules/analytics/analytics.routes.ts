@@ -1,11 +1,11 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
-import { internalApiKeyMiddleware } from '../../middleware/internal-api-key.middleware';
-import { createRateLimitMiddleware } from '../../middleware/rate-limit.middleware';
-import { getEnv } from '../../config/env';
-import type { AppEnv } from '../../types/hono-env';
-import { analyticsSummaryHandler } from './analytics.controller';
-import { analyticsQuerySchema } from './analytics.validation';
+import { internalApiKeyMiddleware } from '../../middleware/internal-api-key.middleware.js';
+import { createRateLimitMiddleware } from '../../middleware/rate-limit.middleware.js';
+import { getEnv } from '../../config/env.js';
+import type { AppEnv } from '../../types/hono-env.js';
+import { analyticsSummaryHandler } from './analytics.controller.js';
+import { analyticsQuerySchema } from './analytics.validation.js';
 
 const routes = new Hono<AppEnv>();
 

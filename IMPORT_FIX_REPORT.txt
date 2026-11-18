@@ -1,0 +1,38 @@
+JSS REDIRECT - NODE ESM IMPORT FIX
+=============================================
+Source files scanned: 38
+Files modified: 28
+Import paths fixed: 90
+Unresolved imports: 0
+
+MODIFIED FILES:
+src/app.ts
+src/index.ts
+src/config/destinations.ts
+src/db/relations.ts
+src/db/client.ts
+src/middleware/error-handler.middleware.ts
+src/middleware/request-id.middleware.ts
+src/middleware/internal-api-key.middleware.ts
+src/middleware/rate-limit.middleware.ts
+src/modules/tracking/tracking.service.ts
+src/modules/tracking/tracking.controller.ts
+src/modules/tracking/tracking.repository.ts
+src/modules/tracking/tracking.routes.ts
+src/modules/health/health.routes.ts
+src/modules/redirects/redirect.types.ts
+src/modules/redirects/redirect.routes.ts
+src/modules/redirects/redirect.validation.ts
+src/modules/redirects/redirect.repository.ts
+src/modules/redirects/redirect.controller.ts
+src/modules/redirects/redirect.service.ts
+src/modules/analytics/analytics.repository.ts
+src/modules/analytics/analytics.service.ts
+src/modules/analytics/analytics.controller.ts
+src/modules/analytics/analytics.routes.ts
+src/db/schema/tracking-tokens.ts
+src/db/schema/click-events.ts
+src/db/schema/redirect-links.ts
+src/lib/errors/app-error.ts
+
+UNRESOLVED IMPORTS:

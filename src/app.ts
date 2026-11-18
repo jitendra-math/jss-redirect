@@ -1,11 +1,11 @@
 import { Hono } from 'hono';
-import { errorHandler } from './middleware/error-handler.middleware';
-import { requestIdMiddleware } from './middleware/request-id.middleware';
-import { analyticsRoutes } from './modules/analytics/analytics.routes';
-import { healthRoutes } from './modules/health/health.routes';
-import { redirectRoutes } from './modules/redirects/redirect.routes';
-import { trackingRoutes } from './modules/tracking/tracking.routes';
-import type { AppEnv } from './types/hono-env';
+import { errorHandler } from './middleware/error-handler.middleware.js';
+import { requestIdMiddleware } from './middleware/request-id.middleware.js';
+import { analyticsRoutes } from './modules/analytics/analytics.routes.js';
+import { healthRoutes } from './modules/health/health.routes.js';
+import { redirectRoutes } from './modules/redirects/redirect.routes.js';
+import { trackingRoutes } from './modules/tracking/tracking.routes.js';
+import type { AppEnv } from './types/hono-env.js';
 
 const app = new Hono<AppEnv>();
 

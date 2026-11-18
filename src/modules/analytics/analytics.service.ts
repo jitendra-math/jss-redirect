@@ -1,4 +1,4 @@
-import { getAnalyticsSummary } from './analytics.repository';
+import { getAnalyticsSummary } from './analytics.repository.js';
 
 export type AnalyticsQuery = {
   from?: string;

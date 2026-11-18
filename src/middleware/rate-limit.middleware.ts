@@ -1,6 +1,6 @@
 import { createMiddleware } from 'hono/factory';
-import { ErrorCode } from '../lib/errors/error-codes';
-import type { AppEnv } from '../types/hono-env';
+import { ErrorCode } from '../lib/errors/error-codes.js';
+import type { AppEnv } from '../types/hono-env.js';
 
 type RateLimitOptions = {
   windowMs: number;

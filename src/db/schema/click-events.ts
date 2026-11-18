@@ -1,8 +1,8 @@
 import { randomUUID } from 'node:crypto';
 import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { campaigns } from './campaigns';
-import { redirectLinks } from './redirect-links';
-import { trackingTokens } from './tracking-tokens';
+import { campaigns } from './campaigns.js';
+import { redirectLinks } from './redirect-links.js';
+import { trackingTokens } from './tracking-tokens.js';
 
 export const clickEvents = sqliteTable(
   'click_events',

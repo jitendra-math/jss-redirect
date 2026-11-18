@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { destinationKeys } from '../../config/destinations';
+import { destinationKeys } from '../../config/destinations.js';
 
 export const redirectQuerySchema = z.object({
   cid: z.string().regex(/^[A-Za-z0-9_-]{43}$/).optional(),

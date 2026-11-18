@@ -1,9 +1,9 @@
 import type { ErrorHandler } from 'hono';
 import type { ContentfulStatusCode } from 'hono/utils/http-status';
-import { AppError } from '../lib/errors/app-error';
-import { ErrorCode } from '../lib/errors/error-codes';
-import { logger } from '../lib/logger';
-import type { AppEnv } from '../types/hono-env';
+import { AppError } from '../lib/errors/app-error.js';
+import { ErrorCode } from '../lib/errors/error-codes.js';
+import { logger } from '../lib/logger.js';
+import type { AppEnv } from '../types/hono-env.js';
 
 export const errorHandler: ErrorHandler<AppEnv> = (error, c) => {
   const requestId = c.get('requestId');

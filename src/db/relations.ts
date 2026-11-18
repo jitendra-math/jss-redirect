@@ -1,8 +1,8 @@
 import { relations } from 'drizzle-orm';
-import { campaigns } from './schema/campaigns';
-import { clickEvents } from './schema/click-events';
-import { redirectLinks } from './schema/redirect-links';
-import { trackingTokens } from './schema/tracking-tokens';
+import { campaigns } from './schema/campaigns.js';
+import { clickEvents } from './schema/click-events.js';
+import { redirectLinks } from './schema/redirect-links.js';
+import { trackingTokens } from './schema/tracking-tokens.js';
 
 export { campaigns, clickEvents, redirectLinks, trackingTokens };
 

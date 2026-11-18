@@ -1,5 +1,5 @@
 import type { ContentfulStatusCode } from 'hono/utils/http-status';
-import type { ErrorCode } from './error-codes';
+import type { ErrorCode } from './error-codes.js';
 
 export class AppError extends Error {
   readonly statusCode: ContentfulStatusCode;

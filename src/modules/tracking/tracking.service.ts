@@ -1,7 +1,7 @@
-import { getEnv } from '../../config/env';
-import { AppError } from '../../lib/errors/app-error';
-import { ErrorCode } from '../../lib/errors/error-codes';
-import { generateOpaqueToken, hashOpaqueToken } from '../../lib/token';
+import { getEnv } from '../../config/env.js';
+import { AppError } from '../../lib/errors/app-error.js';
+import { ErrorCode } from '../../lib/errors/error-codes.js';
+import { generateOpaqueToken, hashOpaqueToken } from '../../lib/token.js';
 import {
   findCampaignById,
   findCampaignBySlug,
@@ -10,8 +10,8 @@ import {
   insertClickEvent,
   insertTrackingToken,
   updateTokenLastUsedAt,
-} from './tracking.repository';
-import type { CreateCampaignInput, CreateTrackingTokenInput, RecordClickInput } from './tracking.types';
+} from './tracking.repository.js';
+import type { CreateCampaignInput, CreateTrackingTokenInput, RecordClickInput } from './tracking.types.js';
 
 export async function createCampaign(input: CreateCampaignInput) {
   const existing = await findCampaignBySlug(input.slug);

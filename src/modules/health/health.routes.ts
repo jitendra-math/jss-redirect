@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { sql } from 'drizzle-orm';
-import { db } from '../../db/client';
-import type { AppEnv } from '../../types/hono-env';
+import { db } from '../../db/client.js';
+import type { AppEnv } from '../../types/hono-env.js';
 
 const routes = new Hono<AppEnv>();
 

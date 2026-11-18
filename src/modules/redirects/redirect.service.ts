@@ -1,8 +1,8 @@
-import { getDestinations, isDestinationKey, type DestinationKey } from '../../config/destinations';
-import { AppError } from '../../lib/errors/app-error';
-import { ErrorCode } from '../../lib/errors/error-codes';
-import { findActiveRedirectBySlug, findCampaignById, findRedirectBySlug, insertRedirectLink } from './redirect.repository';
-import type { CreateRedirectLinkInput } from './redirect.types';
+import { getDestinations, isDestinationKey, type DestinationKey } from '../../config/destinations.js';
+import { AppError } from '../../lib/errors/app-error.js';
+import { ErrorCode } from '../../lib/errors/error-codes.js';
+import { findActiveRedirectBySlug, findCampaignById, findRedirectBySlug, insertRedirectLink } from './redirect.repository.js';
+import type { CreateRedirectLinkInput } from './redirect.types.js';
 
 export function getFixedDestination(destinationKey: DestinationKey) {
   return getDestinations()[destinationKey];

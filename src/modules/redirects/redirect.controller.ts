@@ -1,11 +1,11 @@
 import type { Context } from 'hono';
-import type { DestinationKey } from '../../config/destinations';
-import { getFixedDestination, resolveRedirectSlug } from './redirect.service';
-import { AppError } from '../../lib/errors/app-error';
-import { ErrorCode } from '../../lib/errors/error-codes';
-import { recordClick } from '../tracking/tracking.service';
-import { logger } from '../../lib/logger';
-import type { AppEnv } from '../../types/hono-env';
+import type { DestinationKey } from '../../config/destinations.js';
+import { getFixedDestination, resolveRedirectSlug } from './redirect.service.js';
+import { AppError } from '../../lib/errors/app-error.js';
+import { ErrorCode } from '../../lib/errors/error-codes.js';
+import { recordClick } from '../tracking/tracking.service.js';
+import { logger } from '../../lib/logger.js';
+import type { AppEnv } from '../../types/hono-env.js';
 
 async function recordClickWithoutBlockingRedirect(
   c: Context<AppEnv>,

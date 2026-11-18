@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
-import type { AppEnv } from '../../types/hono-env';
-import { buildAnalyticsSummary, type AnalyticsQuery } from './analytics.service';
+import type { AppEnv } from '../../types/hono-env.js';
+import { buildAnalyticsSummary, type AnalyticsQuery } from './analytics.service.js';
 
 export async function analyticsSummaryHandler(c: Context<AppEnv>) {
   const from = c.req.query('from');

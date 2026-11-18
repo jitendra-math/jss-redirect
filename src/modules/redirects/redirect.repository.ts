@@ -1,8 +1,8 @@
 import { and, eq, gt, isNull, or } from 'drizzle-orm';
-import { db } from '../../db/client';
-import { campaigns } from '../../db/schema/campaigns';
-import { redirectLinks } from '../../db/schema/redirect-links';
-import type { CreateRedirectLinkInput } from './redirect.types';
+import { db } from '../../db/client.js';
+import { campaigns } from '../../db/schema/campaigns.js';
+import { redirectLinks } from '../../db/schema/redirect-links.js';
+import type { CreateRedirectLinkInput } from './redirect.types.js';
 
 export async function findActiveRedirectBySlug(slug: string) {
   const now = new Date();

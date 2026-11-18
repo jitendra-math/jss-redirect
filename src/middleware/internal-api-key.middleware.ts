@@ -1,9 +1,9 @@
 import { timingSafeEqual } from 'node:crypto';
 import { createMiddleware } from 'hono/factory';
-import { getEnv } from '../config/env';
-import { AppError } from '../lib/errors/app-error';
-import { ErrorCode } from '../lib/errors/error-codes';
-import type { AppEnv } from '../types/hono-env';
+import { getEnv } from '../config/env.js';
+import { AppError } from '../lib/errors/app-error.js';
+import { ErrorCode } from '../lib/errors/error-codes.js';
+import type { AppEnv } from '../types/hono-env.js';
 
 function matchesSecret(candidate: string, expected: string): boolean {
   const candidateBuffer = Buffer.from(candidate);

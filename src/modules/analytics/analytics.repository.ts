@@ -1,7 +1,7 @@
 import { and, desc, eq, gte, lte, sql, type SQL } from 'drizzle-orm';
-import { db } from '../../db/client';
-import { campaigns } from '../../db/schema/campaigns';
-import { clickEvents } from '../../db/schema/click-events';
+import { db } from '../../db/client.js';
+import { campaigns } from '../../db/schema/campaigns.js';
+import { clickEvents } from '../../db/schema/click-events.js';
 
 type AnalyticsFilters = {
   from?: Date;

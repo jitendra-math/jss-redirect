@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
-import { createCampaign, createTrackingToken } from './tracking.service';
-import type { CreateCampaignInput, CreateTrackingTokenInput } from './tracking.types';
-import type { AppEnv } from '../../types/hono-env';
+import { createCampaign, createTrackingToken } from './tracking.service.js';
+import type { CreateCampaignInput, CreateTrackingTokenInput } from './tracking.types.js';
+import type { AppEnv } from '../../types/hono-env.js';
 
 export async function createCampaignHandler(c: Context<AppEnv>) {
   const input = await c.req.json<CreateCampaignInput>();

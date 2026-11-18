@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { campaigns } from './campaigns';
+import { campaigns } from './campaigns.js';
 
 export const redirectLinks = sqliteTable(
   'redirect_links',

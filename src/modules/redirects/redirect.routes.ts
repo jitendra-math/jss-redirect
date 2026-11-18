@@ -1,12 +1,12 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
-import { internalApiKeyMiddleware } from '../../middleware/internal-api-key.middleware';
-import { createRateLimitMiddleware } from '../../middleware/rate-limit.middleware';
-import { getEnv } from '../../config/env';
-import type { AppEnv } from '../../types/hono-env';
-import { dynamicRedirectHandler, fixedRedirectHandler } from './redirect.controller';
-import { createRedirectLink } from './redirect.service';
-import { createRedirectLinkSchema, redirectQuerySchema, redirectSlugParamsSchema } from './redirect.validation';
+import { internalApiKeyMiddleware } from '../../middleware/internal-api-key.middleware.js';
+import { createRateLimitMiddleware } from '../../middleware/rate-limit.middleware.js';
+import { getEnv } from '../../config/env.js';
+import type { AppEnv } from '../../types/hono-env.js';
+import { dynamicRedirectHandler, fixedRedirectHandler } from './redirect.controller.js';
+import { createRedirectLink } from './redirect.service.js';
+import { createRedirectLinkSchema, redirectQuerySchema, redirectSlugParamsSchema } from './redirect.validation.js';
 
 const routes = new Hono<AppEnv>();
 const apiRateLimit = createRateLimitMiddleware({
