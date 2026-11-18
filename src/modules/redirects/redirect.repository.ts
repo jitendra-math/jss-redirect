@@ -1,4 +1,4 @@
-import { and, eq, gt, isNull, or } from 'drizzle-orm';
+import { and, desc, eq, gt, isNull, or } from 'drizzle-orm';
 import { db } from '../../db/client.js';
 import { campaigns } from '../../db/schema/campaigns.js';
 import { redirectLinks } from '../../db/schema/redirect-links.js';
@@ -27,6 +27,14 @@ export async function findCampaignById(id: string) {
   return rows[0] ?? null;
 }
 
+export async function findCampaignRedirectLinkByKey(campaignId: string, linkKey: string) {
+  const rows = await db.select({ id: redirectLinks.id })
+    .from(redirectLinks)
+    .where(and(eq(redirectLinks.campaignId, campaignId), eq(redirectLinks.linkKey, linkKey)))
+    .limit(1);
+  return rows[0] ?? null;
+}
+
 export async function findRedirectBySlug(slug: string) {
   const rows = await db.select().from(redirectLinks).where(eq(redirectLinks.slug, slug)).limit(1);
   return rows[0] ?? null;
@@ -38,10 +46,28 @@ export async function insertRedirectLink(input: CreateRedirectLinkInput) {
     .values({
       slug: input.slug,
       destinationKey: input.destinationKey,
+      destinationUrl: input.destinationUrl ?? null,
+      linkKey: input.linkKey ?? null,
+      label: input.label ?? null,
       campaignId: input.campaignId ?? null,
       expiresAt: input.expiresAt ?? null,
     })
     .returning();
 
   return rows[0];
+}
+
+export async function listRedirectLinks(campaignId?: string) {
+  const where = campaignId ? eq(redirectLinks.campaignId, campaignId) : undefined;
+  return db.select().from(redirectLinks).where(where).orderBy(desc(redirectLinks.createdAt)).limit(1000);
+}
+
+export async function updateRedirectLink(id: string, patch: Partial<{
+  destinationUrl: string | null;
+  label: string | null;
+  isActive: boolean;
+  expiresAt: Date | null;
+}>) {
+  const rows = await db.update(redirectLinks).set(patch).where(eq(redirectLinks.id, id)).returning();
+  return rows[0] ?? null;
 }

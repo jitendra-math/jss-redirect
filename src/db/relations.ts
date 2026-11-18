@@ -17,6 +17,7 @@ export const redirectLinksRelations = relations(redirectLinks, ({ one, many }) =
     fields: [redirectLinks.campaignId],
     references: [campaigns.id],
   }),
+  trackingTokens: many(trackingTokens),
   clickEvents: many(clickEvents),
 }));
 
@@ -24,6 +25,10 @@ export const trackingTokensRelations = relations(trackingTokens, ({ one, many })
   campaign: one(campaigns, {
     fields: [trackingTokens.campaignId],
     references: [campaigns.id],
+  }),
+  redirectLink: one(redirectLinks, {
+    fields: [trackingTokens.redirectLinkId],
+    references: [redirectLinks.id],
   }),
   clickEvents: many(clickEvents),
 }));

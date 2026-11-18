@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { index, integer, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core';
 import { campaigns } from './campaigns.js';
 
 export const redirectLinks = sqliteTable(
@@ -8,6 +8,9 @@ export const redirectLinks = sqliteTable(
     id: text('id').primaryKey().$defaultFn(() => randomUUID()),
     slug: text('slug').notNull().unique(),
     destinationKey: text('destination_key').notNull(),
+    destinationUrl: text('destination_url'),
+    linkKey: text('link_key'),
+    label: text('label'),
     campaignId: text('campaign_id').references(() => campaigns.id, { onDelete: 'set null' }),
     isActive: integer('is_active', { mode: 'boolean' }).notNull().default(true),
     expiresAt: integer('expires_at', { mode: 'timestamp_ms' }),
@@ -16,5 +19,6 @@ export const redirectLinks = sqliteTable(
   (table) => [
     index('redirect_links_campaign_id_idx').on(table.campaignId),
     index('redirect_links_active_idx').on(table.isActive),
+    uniqueIndex('redirect_links_campaign_link_key_unique_idx').on(table.campaignId, table.linkKey),
   ],
 );

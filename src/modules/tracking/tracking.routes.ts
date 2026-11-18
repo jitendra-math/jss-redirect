@@ -4,8 +4,21 @@ import { getEnv } from '../../config/env.js';
 import { internalApiKeyMiddleware } from '../../middleware/internal-api-key.middleware.js';
 import { createRateLimitMiddleware } from '../../middleware/rate-limit.middleware.js';
 import type { AppEnv } from '../../types/hono-env.js';
-import { createCampaignHandler, createTrackingTokenHandler } from './tracking.controller.js';
-import { createCampaignSchema, createTrackingTokenSchema } from './tracking.validation.js';
+import {
+  createBulkTrackingLinksHandler,
+  createCampaignHandler,
+  createTrackingTokenHandler,
+  getCampaignDetailsHandler,
+  listCampaignsHandler,
+  revokeTrackingTokenHandler,
+} from './tracking.controller.js';
+import {
+  bulkTrackingLinksSchema,
+  campaignIdParamsSchema,
+  createCampaignSchema,
+  createTrackingTokenSchema,
+  tokenIdParamsSchema,
+} from './tracking.validation.js';
 
 const routes = new Hono<AppEnv>();
 
@@ -15,7 +28,11 @@ routes.use('*', createRateLimitMiddleware({
 }));
 routes.use('*', internalApiKeyMiddleware);
 
+routes.get('/campaigns', listCampaignsHandler);
 routes.post('/campaigns', zValidator('json', createCampaignSchema), createCampaignHandler);
+routes.get('/campaigns/:campaignId', zValidator('param', campaignIdParamsSchema), getCampaignDetailsHandler);
 routes.post('/tokens', zValidator('json', createTrackingTokenSchema), createTrackingTokenHandler);
+routes.post('/tokens/:tokenId/revoke', zValidator('param', tokenIdParamsSchema), revokeTrackingTokenHandler);
+routes.post('/bulk', zValidator('json', bulkTrackingLinksSchema), createBulkTrackingLinksHandler);
 
 export { routes as trackingRoutes };

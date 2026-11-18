@@ -14,6 +14,9 @@ const envSchema = z.object({
   GITHUB_WORK_URL: httpsUrl.default('https://github.com/jitendra-math/WhatsApp-Business-API'),
   WEBSITE_URL: httpsUrl.default('https://jitubanna.com/'),
   TRACKING_TOKEN_TTL_DAYS: z.coerce.number().int().min(1).max(3650).default(180),
+  PUBLIC_BASE_URL: z.url().refine((value) => new URL(value).protocol === 'https:', {
+    message: 'PUBLIC_BASE_URL must use HTTPS.',
+  }).default('https://jss-redirect.vercel.app'),
   RATE_LIMIT_WINDOW_MS: z.coerce.number().int().min(1000).max(3600000).default(60000),
   RATE_LIMIT_MAX: z.coerce.number().int().min(1).max(10000).default(30),
 });

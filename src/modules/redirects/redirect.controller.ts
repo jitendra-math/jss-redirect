@@ -9,7 +9,7 @@ import type { AppEnv } from '../../types/hono-env.js';
 
 async function recordClickWithoutBlockingRedirect(
   c: Context<AppEnv>,
-  destinationKey: DestinationKey,
+  destinationKey: string,
   trackingToken: string | undefined,
   campaignId: string | null = null,
   redirectLinkId: string | null = null,
@@ -44,9 +44,7 @@ export function fixedRedirectHandler(destinationKey: DestinationKey) {
   };
 }
 
-export async function dynamicRedirectHandler(
-  c: Context<AppEnv>,
-) {
+export async function dynamicRedirectHandler(c: Context<AppEnv>) {
   const trackingToken = c.req.query('cid');
   const slug = c.req.param('slug');
 
@@ -55,7 +53,6 @@ export async function dynamicRedirectHandler(
   }
 
   const resolved = await resolveRedirectSlug(slug);
-
   await recordClickWithoutBlockingRedirect(
     c,
     resolved.destinationKey,

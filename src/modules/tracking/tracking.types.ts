@@ -5,7 +5,22 @@ export type CreateCampaignInput = {
 
 export type CreateTrackingTokenInput = {
   campaignId?: string;
+  redirectLinkId?: string;
   recipientRef: string;
+  expiresInDays?: number;
+};
+
+export type BulkTrackingLinkInput = {
+  campaignId: string;
+  recipients: Array<{
+    email: string;
+    recipientRef?: string;
+  }>;
+  links: Array<{
+    key: string;
+    label: string;
+    destinationUrl: string;
+  }>;
   expiresInDays?: number;
 };
 

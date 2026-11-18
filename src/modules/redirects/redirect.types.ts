@@ -1,15 +1,9 @@
-import type { DestinationKey } from '../../config/destinations.js';
-
 export type CreateRedirectLinkInput = {
   slug: string;
-  destinationKey: DestinationKey;
+  destinationKey: string;
+  destinationUrl?: string;
+  linkKey?: string;
+  label?: string;
   campaignId?: string;
   expiresAt?: Date;
-};
-
-export type ResolvedRedirect = {
-  id: string;
-  slug: string;
-  destinationKey: DestinationKey;
-  campaignId: string | null;
 };
